@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Transport Pathfinder</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; }
+        .input-group { margin-bottom: 15px; }
+        select, button { padding: 8px 12px; font-size: 16px; }
+        button { background: #4285f4; color: white; border: none; cursor: pointer; }
+        #results { margin-top: 20px; padding: 15px; border: 1px solid #ddd; border-radius: 4px; }
+        .station { font-weight: bold; color: #4285f4; }
+    </style>
+</head>
+<body>
+    <h1>Public Transport Pathfinder</h1>
+    
+    <div class="input-group">
+        <label for="start">From:</label>
+        <select id="start"></select>
+    </div>
+    
+    <div class="input-group">
+        <label for="end">To:</label>
+        <select id="end"></select>
+    </div>
+    
+    <button onclick="findRoute()">Find Route</button>
+    
+    <div id="results"></div>
+    
+    <script>
+        // Load stations on page load
+        fetch('/api/stations')
+            .then(res => res.json())
+            .then(stations => {
+                const startSelect = document.getElementById('start');
+                const endSelect = document.getElementById('end');
+                
+                stations.forEach(station => {
+                    startSelect.add(new Option(station, station));
+                    endSelect.add(new Option(station, station));
+                });
+            });
+
+        function findRoute() {
+            const start = document.getElementById('start').value;
+            const end = document.getElementById('end').value;
+            
+            fetch(`/api/route?start=${start}&end=${end}`)
+                .then(res => res.json())
+                .then(data => {
+                    if (data.error) {
+                        document.getElementById('results').innerHTML = 
+                            `<p style="color:red">${data.error}</p>`;
+                        return;
+                    }
+                    
+                    let html = `<h3>Route from <span class="station">${start}</span> to <span class="station">${end}</span></h3>`;
+                    html += `<p><strong>Path:</strong> ${data.path.join(' → ')}</p>`;
+                    html += `<p><strong>Travel Time:</strong> ${data.time} minutes</p>`;
+                    
+                    document.getElementById('results').innerHTML = html;
+                })
+                .catch(err => {
+                    document.getElementById('results').innerHTML = 
+                        `<p style="color:red">Error: ${err.message}</p>`;
+                });
+        }
+    </script>
+</body>
+</html>

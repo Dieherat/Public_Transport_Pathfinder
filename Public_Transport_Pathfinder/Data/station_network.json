@@ -1,0 +1,25 @@
+{
+  "Amritsar Junction": [
+      {"neighbor": "Jalandhar City", "time": 3, "line": "Golden Temple Line"},
+      {"neighbor": "Ludhiana", "time": 5, "line": "Blue Line"},
+      {"neighbor": "Pathankot", "time": 7, "line": "Green Line"}
+  ],
+  "Jalandhar City": [
+      {"neighbor": "Amritsar Junction", "time": 3, "line": "Golden Temple Line"},
+      {"neighbor": "Phagwara", "time": 4, "line": "Golden Temple Line"},
+      {"neighbor": "Chandigarh", "time": 6, "line": "Yellow Line"}
+  ],
+  "Ludhiana": [
+      {"neighbor": "Amritsar Junction", "time": 5, "line": "Blue Line"},
+      {"neighbor": "Patiala", "time": 4, "line": "Blue Line"},
+      {"neighbor": "Bathinda", "time": 8, "line": "Green Line"}
+  ],
+  "Phagwara": [
+      {"neighbor": "Jalandhar City", "time": 4, "line": "Golden Temple Line"},
+      {"neighbor": "Hoshiarpur", "time": 5, "line": "Golden Temple Line"}
+  ],
+  "Pathankot": [
+      {"neighbor": "Amritsar Junction", "time": 7, "line": "Green Line"},
+      {"neighbor": "Bathinda", "time": 3, "line": "Green Line"}
+  ]
+}
